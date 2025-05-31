@@ -1,0 +1,114 @@
+import React, { useState } from 'react'
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import Image from 'next/image'
+import Link from 'next/link';
+import { ChevronRightIcon, ExternalLinkIcon } from 'lucide-react';
+import { navLinks } from '../section/Header';
+import {useDispatch, useSelector} from "react-redux"
+import { useRouter } from 'next/navigation';
+import { api, ENDPOINT } from '@/lib/api';
+import { userLoggedOutDetails } from '@/redux/userSlice';
+
+
+const ProfileSheet = () => {
+
+  const [open, setOpen]= useState(false);
+  const userData= useSelector((state) => state.user)
+  const dispatch= useDispatch();
+  const router= useRouter();
+
+  const handleLogout= async () => {
+    try {
+      const res= await api.get(ENDPOINT.logout);
+      if(res.data.status === "success") {
+        dispatch(userLoggedOutDetails());
+        router.push("/");
+      }
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger>
+        <Image
+          src="/profile.avif"
+          alt="profile"
+          width={40}
+          height={40}
+          className="ml-4 h-10 w-10 rounded-full"
+        />
+      </SheetTrigger>
+      <SheetContent side='right' className="px-6">
+        <div className="bg-slate-700/30 p-6 flex flex-col items-center gap-2 mt-[100px] rounded-lg">
+          <Image
+            src="/profile.avif"
+            alt="profile"
+            width={40}
+            height={40}
+            className="h-[100px] w-[100px] rounded-full -mt-[60px]"
+          />
+          <p className="text-xl font-bold capitalize">
+            {`${userData.isLoggedIn ? userData.name : "Guest"}`}
+          </p>
+          <Link
+            href={`${userData.isLoggedIn ? "/" : "/login"}`}
+            className="rounded-full font-medium mt-4 text-base px-4 py-2 bg-pink-600"
+            onClick={() => {
+              setOpen(false);
+              if(userData.isLoggedIn) {
+                handleLogout();
+              }
+            }}
+          >
+            {`${userData.isLoggedIn ? "Logout" : "Login"}`}
+          </Link>
+        </div>
+        <div className='divide-y my-4'>
+          <Link
+            href={"/subscription"}
+            className="flex items-center justify-between px-2 py-2 text-sm"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            Subscribe Now
+            <ChevronRightIcon className='w-6 h-6'/>
+          </Link>
+          <div>
+            {navLinks.map((link) => (
+              <Link
+                href={link.href}
+                key={link.key}
+                className='flex items-center justify-between px-2 py-2 text-sm'
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                 {link.name}
+                 <ExternalLinkIcon className='w-4 h-4'/> 
+              </Link>
+            ))}
+          </div>
+          <Link
+            href={"/"}
+            className='flex items-center justify-between px-2 py-4 text-sm'
+          >
+            Support/Contact Us
+            <ChevronRightIcon className='w-6 h-6'/>
+          </Link>
+        </div>
+      </SheetContent>
+    </Sheet>
+
+
+
+  )
+
+}
+
+export default ProfileSheet
