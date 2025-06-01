@@ -4,6 +4,7 @@ import JumperSection from '@/components/section/JumperSection';
 import { api, ENDPOINT } from '@/lib/api';
 import React from 'react'
 
+export const dynamic = 'force-dynamic';
 function movies() {
 
   const list = [
