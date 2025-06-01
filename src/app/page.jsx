@@ -4,6 +4,7 @@ import CategoriesSection from "@/components/section/CategoriesSection";
 import JumperSection from "@/components/section/JumperSection";
 import {api, ENDPOINT} from "@/lib/api";
 
+export const dynamic = 'force-dynamic';
 export default function Home() {
 
   const list = [
