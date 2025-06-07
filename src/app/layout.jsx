@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 import { ThemeProvider } from "@/components/theme-provider";
 import StoreProvider from "@/providers/StoreProvider";
+import AuthProvider from "@/providers/AuthProvider";
 
 
 const geistSans = Geist({
@@ -30,14 +31,16 @@ export default function RootLayout({ children }) {
         className={`${inter.className} antialiased` }
       >
         <StoreProvider>
-          <ThemeProvider attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange>
-            <Header/>
-            {children}
-            <Footer/>
-          </ThemeProvider>
+          <AuthProvider>
+            <ThemeProvider attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange>
+              <Header/>
+              {children}
+              <Footer/>
+            </ThemeProvider>
+          </AuthProvider>
         </StoreProvider>
       </body>
     </html>
