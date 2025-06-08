@@ -1,6 +1,7 @@
 "use client"
 
 import { api, ENDPOINT } from "@/lib/api";
+import { userLoggedInDetails } from "@/redux/userSlice";
 
 const { Loader2Icon } = require("lucide-react");
 const { useEffect, useState } = require("react");
