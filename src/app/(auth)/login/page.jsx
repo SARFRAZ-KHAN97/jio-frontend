@@ -35,7 +35,7 @@ function login() {
       if(res.data.status === "success") {
         // logged in .. do what u want
         
-        dispatch(userLoggedInDetails(res.data.data));
+        dispatch(userLoggedInDetails(res.data.user));
         router.push("/");
       }
     }
