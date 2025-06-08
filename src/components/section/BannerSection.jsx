@@ -4,6 +4,7 @@ import { Skeleton } from '../atom/Skeleton';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
 import Image from 'next/image';
 import Link from 'next/link';
+import { InboxIcon } from 'lucide-react';
 
 async function BannerSection({ fetcher }) {
   return (

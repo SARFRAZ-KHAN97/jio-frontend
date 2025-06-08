@@ -38,7 +38,6 @@ export default function Home() {
   ];
    async function getHomeBannerData() {
     const resp = await api.get(ENDPOINT.discoverUpcoming);
-    console.log(resp);
     const data = resp?.data?.response?.results;
     return data;
   }

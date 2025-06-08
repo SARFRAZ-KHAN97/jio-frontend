@@ -1,5 +1,7 @@
 "use client"
 
+import { api, ENDPOINT } from "@/lib/api";
+
 const { Loader2Icon } = require("lucide-react");
 const { useEffect, useState } = require("react");
 const { useDispatch } = require("react-redux")
@@ -13,9 +15,9 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         const fetcher = async () => {
             try{
-                const res= await api.get(ENDPOINT.profile);
+                const res= await api.get(ENDPOINT.user);
                 if(res.status === 200) {
-                    dispatch(userLoggedInDetails(res.data.data));
+                    dispatch(userLoggedInDetails(res.data.user));
                 }
             }
             catch (err) {
