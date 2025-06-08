@@ -53,7 +53,7 @@ const ProfileSheet = () => {
             className="h-[100px] w-[100px] rounded-full -mt-[60px]"
           />
           <p className="text-xl font-bold capitalize">
-            {`${userData.isLoggedIn ? userData.name : "Guest"}`}
+            {`${userData.isLoggedIn ? userData.user.name : "Guest"}`}
           </p>
           <Link
             href={`${userData.isLoggedIn ? "/" : "/login"}`}
